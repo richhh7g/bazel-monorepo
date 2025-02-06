@@ -1,0 +1,10 @@
+version: "3"
+
+tasks:
+  clean:
+    desc: "Limpa o projeto."
+    cmd: bazel clean --expunge
+
+  pnpm:lock:
+    desc: "Cria o arquivo de lockfile 'pnpm-lock.yaml' usando 'pnpm install --lockfile-only'."
+    cmd: bazel run -- @pnpm//:pnpm --dir $PWD install --lockfile-only
