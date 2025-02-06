@@ -1,0 +1,9 @@
+"""
+# =======================================
+# Bazel Monorepo Configuration
+# =======================================
+"""
+module(
+    name    = "bazel-monorepo",
+    version = "1.0",
+)
