@@ -1,3 +1,4 @@
+load("@aspect_rules_jest//jest:defs.bzl", "jest_test")
 load("@aspect_rules_js//js:defs.bzl", "js_binary", "js_library")
 load("@npm//:defs.bzl", "npm_link_all_packages")
 
@@ -14,6 +15,42 @@ js_library(
     deps = [
         ":node_modules/express",
     ],
+)
+
+# Bibliotecas utilizadas apenas em desenvolvimento (ex.: para testes ou mocks)
+js_library(
+    name = "js_legacy_api_items_modules_development",
+    deps = [
+        "//:node_modules/supertest",
+    ],
+)
+
+# =================================
+# Testes
+# =================================
+
+filegroup(
+    name = "js_legacy_api_items_files_test",
+    srcs = glob(["src/**/*.test.js"]),
+)
+
+js_library(
+    name = "js_legacy_api_items_lib_test",
+    srcs = [
+        ":js_legacy_api_items_files_test",
+    ],
+)
+
+jest_test(
+    name = "test",
+    config = "jest.config.json",
+    data = [
+        ":js_legacy_api_items_lib",
+        ":js_legacy_api_items_lib_test",
+        ":js_legacy_api_items_modules_production",
+        ":js_legacy_api_items_modules_development",
+    ],
+    node_modules = "//:node_modules",
 )
 
 

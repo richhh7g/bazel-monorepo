@@ -7,3 +7,6 @@ tasks:
   build:
     desc: "Compila o binário da aplicação"
     cmd: bazel build //apps/js-legacy-api-items:main
+  test:
+    desc: "Executa os testes da aplicação"
+    cmd: bazel test //apps/js-legacy-api-items:test --test_output=all --test_arg=--coverage
