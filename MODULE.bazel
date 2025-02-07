@@ -8,11 +8,21 @@ module(
     version = "1.0",
 )
 
+
+# =======================================
+# Dependências Básicas do Bazel
+# =======================================
+
+# Regras gerais e bibliotecas utilitárias
+bazel_dep(name = "aspect_bazel_lib", version = "2.13.0", dev_dependency = True)
+
+
 # =======================================
 # Dependências para JavaScript
 # =======================================
 
 bazel_dep(name = "aspect_rules_js", version = "2.1.0")
+bazel_dep(name = "aspect_rules_jest", version = "0.22.0")
 
 npm = use_extension("@aspect_rules_js//npm:extensions.bzl", "npm", dev_dependency = True)
 npm.npm_translate_lock(
