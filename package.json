@@ -1,6 +1,7 @@
 {
-  "name": "monorepo",
+  "name": "bazel-monorepo",
   "private": true,
   "version": "1.0.0",
+  "author": "Richhh7g <richhh7g@protonmail.com>",
   "license": "MIT"
 }
