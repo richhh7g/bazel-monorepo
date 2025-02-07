@@ -1,0 +1,45 @@
+load("@aspect_rules_js//js:defs.bzl", "js_binary", "js_library")
+load("@npm//:defs.bzl", "npm_link_all_packages")
+
+
+# =================================
+# Dependências do Node.js
+# =================================
+
+npm_link_all_packages(name = "node_modules")
+
+# Bibliotecas que serão utilizadas em produção
+js_library(
+    name = "js_legacy_api_items_modules_production",
+    deps = [
+        ":node_modules/express",
+    ],
+)
+
+
+# =================================
+# Build de Produção
+# =================================
+filegroup(
+    name = "js_legacy_api_items_files",
+    srcs = glob(["src/**/*.js"]),
+    data = [
+        "package.json",
+    ]
+)
+
+js_library(
+    name = "js_legacy_api_items_lib",
+    srcs = [
+        ":js_legacy_api_items_files",
+    ],
+)
+
+js_binary(
+    name = "main",
+    data = [
+        ":js_legacy_api_items_lib",
+        ":js_legacy_api_items_modules_production",
+    ],
+    entry_point = "src/main.js",
+)

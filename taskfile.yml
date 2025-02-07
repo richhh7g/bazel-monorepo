@@ -1,8 +1,11 @@
 version: "3"
 
+includes:
+  js:legacy: apps/js-legacy-api-items/taskfile.yml
+
 tasks:
   clean:
-    desc: "Limpa o projeto."
+    desc: "Limpa o cache do Bazel."
     cmd: bazel clean --expunge
 
   pnpm:lock:
