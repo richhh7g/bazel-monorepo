@@ -19,6 +19,24 @@ bazel_dep(name = "aspect_bazel_lib", version = "2.13.0", dev_dependency = True)
 
 
 # =======================================
+# Dependências OCI (Imagens de Contêiner)
+# =======================================
+
+bazel_dep(name = "rules_oci", version = "2.2.0")
+oci = use_extension("@rules_oci//oci:extensions.bzl", "oci")
+
+oci.pull(
+    name      = "ubuntu",
+    tag       = "plucky-20241213",
+    digest    = "sha256:008b026f11c0b5653d564d0c9877a116770f06dfbdb36ca75c46fd593d863cbc",
+    image     = "ubuntu",
+    platforms = ["linux/amd64"],
+)
+
+use_repo(oci, "ubuntu")
+
+
+# =======================================
 # Dependências para JavaScript
 # =======================================
 
