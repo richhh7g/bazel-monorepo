@@ -1,0 +1,52 @@
+load("@aspect_rules_js//js:defs.bzl", "js_binary", "js_library")
+load("@npm//:defs.bzl", "npm_link_all_packages")
+
+
+# =================================
+# Dependências do Node.js
+# =================================
+
+npm_link_all_packages(name = "node_modules")
+
+# Bibliotecas que serão utilizadas em produção
+js_library(
+    name = "js_api_items_modules_production",
+    deps = [],
+)
+
+# Bibliotecas utilizadas apenas em desenvolvimento (ex.: para testes ou mocks)
+js_library(
+    name = "js_api_items_modules_development",
+    deps = [],
+)
+
+
+# =================================
+# Build de Produção
+# =================================
+filegroup(
+    name = "js_api_items_files",
+    srcs = glob(["src/**/*.js"]),
+    data = [
+        "package.json",
+    ]
+)
+
+js_library(
+    name = "js_api_items_lib",
+    srcs = [
+        ":js_api_items_files",
+    ],
+)
+
+js_binary(
+    name = "main",
+    data = [
+        ":js_api_items_lib",
+        ":js_api_items_modules_production",
+    ],
+    entry_point = "src/main.js",
+    node_options = [
+        "--experimental-specifier-resolution=node"
+    ]
+)

@@ -1,0 +1,9 @@
+version: "3"
+
+tasks:
+  run:
+    desc: "Executa o binário da aplicação"
+    cmd: bazel run //apps/js-api-items:main
+  build:
+    desc: "Compila o binário da aplicação"
+    cmd: bazel build //apps/js-api-items:main

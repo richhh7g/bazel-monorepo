@@ -1,6 +1,7 @@
 version: "3"
 
 includes:
+  js: apps/js-api-items/taskfile.yml
   js:legacy: apps/js-legacy-api-items/taskfile.yml
 
 tasks:
