@@ -5,8 +5,10 @@
   "author": "Richhh7g <richhh7g@protonmail.com>",
   "license": "MIT",
   "devDependencies": {
+    "@jest/globals": "29.5.0",
     "jest-cli": "29.5.0",
     "jest-junit": "15.0.0",
     "supertest": "7.0.0"
-  }
+  },
+  "dependencies": {}
 }

@@ -1,2 +1,3 @@
 packages:
+  - "apps/js-api-items"
   - "apps/js-legacy-api-items"
