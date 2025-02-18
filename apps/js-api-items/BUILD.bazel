@@ -90,3 +90,35 @@ js_binary(
         "--experimental-specifier-resolution=node"
     ]
 )
+
+
+# =================================
+# Criação da Imagem Docker (OCI)
+# =================================
+
+js_image_layer(
+    name = "js_api_items_layer",
+    binary = ":main",
+    root = "/app/bin",
+)
+
+timestamp_utc(
+    name = "created",
+)
+
+oci_image(
+    name = "image_oci",
+    base = "@ubuntu",
+    cmd = [
+        "apps/js-api-items/main",
+    ],
+    created = ":created",
+    tars = [":js_api_items_layer"],
+    workdir = "/app/bin",
+)
+
+oci_load(
+    name = "image",
+    image = ":image_oci",
+    repo_tags = ["richhh7g/js-api-items:latest"],
+)
