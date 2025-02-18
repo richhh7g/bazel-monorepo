@@ -1,5 +1,10 @@
-export const message = "Hello World!";
+import packageJson from "express/package.json" with { type: "json" };
+import { ServerRunner } from './core/server'
 
-export const greeting = (message) => {
-  console.log(message);
-};
+(async () => {
+  const server = await ServerRunner.run();
+
+  const port = process.env.PORT
+
+  server.listen(port, () => console.log(`Server running on port ${port} with express ${packageJson.version}`));
+})()

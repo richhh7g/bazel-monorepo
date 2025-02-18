@@ -10,5 +10,9 @@
     "jest-junit": "15.0.0",
     "supertest": "7.0.0"
   },
-  "dependencies": {}
+  "dependencies": {
+    "express": "4.21.2",
+    "inversify": "6.2.2",
+    "reflect-metadata": "0.2.2"
+  }
 }

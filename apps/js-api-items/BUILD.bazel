@@ -12,13 +12,18 @@ npm_link_all_packages(name = "node_modules")
 # Bibliotecas que serão utilizadas em produção
 js_library(
     name = "js_api_items_modules_production",
-    deps = [],
+    deps = [
+        ":node_modules/chalk",
+        "//:node_modules/express",
+    ],
 )
 
 # Bibliotecas utilizadas apenas em desenvolvimento (ex.: para testes ou mocks)
 js_library(
     name = "js_api_items_modules_development",
-    deps = [],
+    deps = [
+        "//:node_modules/supertest",
+    ],
 )
 
 # =================================
@@ -27,8 +32,10 @@ js_library(
 
 filegroup(
     name = "js_api_items_files_test",
-    srcs = glob(["src/**/*.test.js"]),
-    data = []
+    srcs = glob(["src/**/*.test.js"], [], allow_empty = True),
+    data = [
+        "test/jest.setup.js",
+    ],
 )
 
 js_library(

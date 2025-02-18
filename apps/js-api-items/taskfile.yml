@@ -3,10 +3,10 @@ version: "3"
 tasks:
   run:
     desc: "Executa o binário da aplicação"
-    cmd: bazel run //apps/js-api-items:main
+    cmd: bazel run //apps/js-api-items:main --run_env=PORT=3333 {{.CLI_ARGS}}
   build:
     desc: "Compila o binário da aplicação"
-    cmd: bazel build //apps/js-api-items:main
+    cmd: bazel build //apps/js-api-items:main {{.CLI_ARGS}}
   test:
     desc: "Executa os testes da aplicação"
     cmd: bazel test //apps/js-api-items:test --test_output=all --test_verbose_timeout_warnings --test_arg=--verbose --test_arg=--coverage

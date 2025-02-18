@@ -1,5 +1,6 @@
 {
   "testEnvironment": "node",
   "testMatch": ["**/*.test.js"],
+  "setupFilesAfterEnv": ["<rootDir>/test/jest.setup.js"],
   "coveragePathIgnorePatterns": ["/index\\.js$"]
 }
