@@ -7,8 +7,8 @@ includes:
 tasks:
   clean:
     desc: "Limpa o cache do Bazel."
-    cmd: bazel clean --expunge
+    cmd: bazelisk clean --expunge
 
   pnpm:lock:
     desc: "Cria o arquivo de lockfile 'pnpm-lock.yaml' usando 'pnpm install --lockfile-only'."
-    cmd: bazel run -- @pnpm//:pnpm --dir $PWD install --lockfile-only
+    cmd: bazelisk run -- @pnpm//:pnpm --dir $PWD install --lockfile-only
