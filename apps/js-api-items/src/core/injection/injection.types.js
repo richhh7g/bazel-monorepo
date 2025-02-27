@@ -1,6 +1,6 @@
 import { ProductController, RootController } from "../../api/controller";
 import { ProductRepository } from "../../api/repository";
-import { CreateProductService } from "../../api/service";
+import { CreateProductService, UpdateProductService } from "../../api/service";
 
 export const TYPES = {
   controller: {
@@ -9,6 +9,7 @@ export const TYPES = {
   },
   service: {
     CreateProductService: Symbol.for(CreateProductService.name),
+    UpdateProductService: Symbol.for(UpdateProductService.name),
   },
   repository: {
     ProductRepository: Symbol.for(ProductRepository.name),
