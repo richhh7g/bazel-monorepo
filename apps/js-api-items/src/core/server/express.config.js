@@ -4,6 +4,7 @@ import path from "node:path";
 
 import chalk from "chalk";
 import express from "express";
+import { container } from "../injection";
 
 const error = chalk.bold.red.underline;
 
@@ -61,7 +62,9 @@ export class ExpressConfig {
         controllerModule.default ||
         controllerModule[Object.keys(controllerModule)[0]];
 
-      const controllerInstance = new ControllerClass();
+      const controllerInstance = container.tryGet(
+        Symbol.for(ControllerClass.name)
+      );
 
       const isRouterConfigured = controllerInstance.router;
       if (!controllerInstance || !isRouterConfigured) {
