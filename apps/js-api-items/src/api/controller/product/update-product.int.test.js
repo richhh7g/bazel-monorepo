@@ -16,8 +16,10 @@ describe("Test Integration | ProductController - update(PUT) ", () => {
     const fakeNow = 1740636348269;
     jest.spyOn(Date, "now").mockReturnValue(fakeNow);
 
+    const productId = "1954602df6d";
+
     database.products.push({
-      _id: "1954602df6d",
+      _id: productId,
       nome: "Maquina de lavar",
       preco: 1999.99,
       categoria: "Eletrodomesticos",
@@ -29,7 +31,7 @@ describe("Test Integration | ProductController - update(PUT) ", () => {
     };
 
     const response = await request(global.server)
-      .put(`/v1/products/${payload.id}`)
+      .put(`/v1/products/${productId}`)
       .send(payload);
 
     expect(response.statusCode).toBe(200);
@@ -56,9 +58,6 @@ describe("Test Integration | ProductController - update(PUT) ", () => {
   });
 
   it("should return error if product not exists", async () => {
-    const fakeNow = 1740636348269;
-    jest.spyOn(Date, "now").mockReturnValue(fakeNow);
-
     const payload = {
       nome: "Maquina de lavar Eletrolux",
       preco: 1500,
