@@ -1,0 +1,128 @@
+load("@aspect_rules_jest//jest:defs.bzl", "jest_test")
+load("@aspect_rules_js//js:defs.bzl", "js_binary", "js_image_layer", "js_library")
+load("@npm//:defs.bzl", "npm_link_all_packages")
+load("@rules_oci//oci:defs.bzl", "oci_image", "oci_load")
+load("//tools/utils:date.bzl", "timestamp_utc")
+
+
+# =================================
+# Dependências do Node.js
+# =================================
+
+npm_link_all_packages(name = "node_modules")
+
+# Bibliotecas que serão utilizadas em produção
+js_library(
+    name = "js_api_items_modules_production",
+    deps = [
+        ":node_modules/chalk",
+        "//:node_modules/express",
+        "//:node_modules/inversify",
+        "//:node_modules/reflect-metadata",
+    ],
+)
+
+# Bibliotecas utilizadas apenas em desenvolvimento (ex.: para testes ou mocks)
+js_library(
+    name = "js_api_items_modules_development",
+    deps = [
+        "//:node_modules/supertest",
+    ],
+)
+
+# =================================
+# Testes
+# =================================
+
+filegroup(
+    name = "js_api_items_files_test",
+    srcs = glob(["src/**/*.test.js"], [], allow_empty = True),
+    data = [
+        "test/jest.setup.js",
+    ],
+)
+
+js_library(
+    name = "js_api_items_lib_test",
+    srcs = [
+        ":js_api_items_files_test",
+    ],
+)
+
+jest_test(
+    name = "test",
+    config = "jest.config.json",
+    data = [
+        ":js_api_items_lib",
+        ":js_api_items_lib_test",
+        ":js_api_items_modules_production",
+        ":js_api_items_modules_development",
+    ],
+    node_options = [
+        "--experimental-vm-modules",
+    ],
+    node_modules = "//:node_modules",
+)
+
+
+# =================================
+# Build de Produção
+# =================================
+filegroup(
+    name = "js_api_items_files",
+    srcs = glob(["src/**/*.js"]),
+    data = [
+        "package.json",
+    ]
+)
+
+js_library(
+    name = "js_api_items_lib",
+    srcs = [
+        ":js_api_items_files",
+    ],
+)
+
+js_binary(
+    name = "main",
+    data = [
+        ":js_api_items_lib",
+        ":js_api_items_modules_production",
+    ],
+    entry_point = "src/main.js",
+    node_options = [
+        "--experimental-specifier-resolution=node"
+    ]
+)
+
+
+# =================================
+# Criação da Imagem Docker (OCI)
+# =================================
+
+js_image_layer(
+    name = "js_api_items_layer",
+    binary = ":main",
+    root = "/app/bin",
+)
+
+timestamp_utc(
+    name = "created",
+)
+
+oci_image(
+    name = "image_oci",
+    base = "@ubuntu",
+    cmd = [
+        "apps/js-api-items/main",
+    ],
+    created = ":created",
+    tars = [":js_api_items_layer"],
+    workdir = "/app/bin",
+)
+
+oci_load(
+    name = "image",
+    image = ":image_oci",
+    repo_tags = ["richhh7g/js-api-items:latest"],
+)

@@ -3,13 +3,13 @@ version: "3"
 tasks:
   run:
     desc: "Executa o binário da aplicação"
-    cmd: bazel run //apps/js-legacy-api-items:main
+    cmd: bazelisk run //apps/js-legacy-api-items:main
   build:
     desc: "Compila o binário da aplicação"
-    cmd: bazel build //apps/js-legacy-api-items:main
+    cmd: bazelisk build //apps/js-legacy-api-items:main
   test:
     desc: "Executa os testes da aplicação"
-    cmd: bazel test //apps/js-legacy-api-items:test --test_output=all --test_arg=--coverage
+    cmd: bazelisk test //apps/js-legacy-api-items:test --test_output=all --test_arg=--coverage
   image:
     desc: "Constrói uma imagem docker da aplicação localmente"
-    cmd: bazel run //apps/js-legacy-api-items:image
+    cmd: bazelisk run //apps/js-legacy-api-items:image
