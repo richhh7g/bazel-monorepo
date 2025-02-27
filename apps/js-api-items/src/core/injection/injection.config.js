@@ -2,7 +2,7 @@ import { Container } from "inversify";
 
 import { TYPES } from "./injection.types";
 
-import { RootController } from "../../api/controller";
+import { ProductController, RootController } from "../../api/controller";
 import { ProductRepository } from "../../api/repository";
 import { CreateProductService } from "../../api/service";
 
@@ -22,6 +22,14 @@ export class InjectionConfig {
     InjectionConfig.container
       .bind(TYPES.controller.RootController)
       .to(RootController);
+
+    InjectionConfig.container
+      .bind(TYPES.controller.ProductController)
+      .toDynamicValue((ctx) => {
+        return new ProductController(
+          ctx.container.get(TYPES.service.CreateProductService)
+        );
+      });
 
     return this;
   }
