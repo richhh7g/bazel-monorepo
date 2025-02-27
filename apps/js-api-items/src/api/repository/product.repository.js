@@ -77,4 +77,22 @@ export class ProductRepository {
       categoria: updateFields.category || product.categoria,
     });
   }
+
+  /**
+   * Remove um produto do banco de dados
+   *
+   * @param {string} id
+   * @throws {Error}
+   * @returns {Promise<void>}
+   */
+  async deleteById(id) {
+    const productIndex = database.products.findIndex(
+      (product) => product._id === id
+    );
+    if (productIndex < 0) {
+      throw new Error("Produto não encontrado.");
+    }
+
+    database.products.splice(productIndex, 1);
+  }
 }

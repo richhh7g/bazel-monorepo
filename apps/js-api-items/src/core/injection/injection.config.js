@@ -4,7 +4,11 @@ import { TYPES } from "./injection.types";
 
 import { ProductController, RootController } from "../../api/controller";
 import { ProductRepository } from "../../api/repository";
-import { CreateProductService, UpdateProductService } from "../../api/service";
+import {
+  CreateProductService,
+  DeleteProductService,
+  UpdateProductService,
+} from "../../api/service";
 
 export class InjectionConfig {
   static container = new Container({ autoBindInjectable: true });
@@ -28,7 +32,8 @@ export class InjectionConfig {
       .toDynamicValue((ctx) => {
         return new ProductController(
           ctx.container.get(TYPES.service.CreateProductService),
-          ctx.container.get(TYPES.service.UpdateProductService)
+          ctx.container.get(TYPES.service.UpdateProductService),
+          ctx.container.get(TYPES.service.DeleteProductService)
         );
       });
 
@@ -53,6 +58,14 @@ export class InjectionConfig {
       .bind(TYPES.service.UpdateProductService)
       .toDynamicValue((ctx) => {
         return new UpdateProductService(
+          ctx.container.get(TYPES.repository.ProductRepository)
+        );
+      });
+
+    InjectionConfig.container
+      .bind(TYPES.service.DeleteProductService)
+      .toDynamicValue((ctx) => {
+        return new DeleteProductService(
           ctx.container.get(TYPES.repository.ProductRepository)
         );
       });
