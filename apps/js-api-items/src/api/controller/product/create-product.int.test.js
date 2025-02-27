@@ -3,10 +3,6 @@ import request from "supertest";
 import { jest } from "@jest/globals";
 import { database } from "../../../core/database";
 
-/**
- * @typedef {import('../../repository').ProductRepository} ProductRepository
- */
-
 describe("Test Integration | ProductController - create(POST) ", () => {
   afterEach(() => {
     database.products.splice(0, database.products.length);
