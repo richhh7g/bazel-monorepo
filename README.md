@@ -10,7 +10,7 @@
 
 Este repositório serve como um ponto central para construir, testar, compilar (ou transpilar) e preparar o deploy de projetos multi‑linguagem e multi‑plataforma usando Bazel. Ele integra ferramentas e workflows modernos para proporcionar um ambiente robusto e escalável, incluindo:
 
-- **Golang** com suporte a **Gazelle** para organizar e gerar automaticamente os arquivos `BUILD.bazel`_.
+- **Golang** com suporte a **Gazelle** para organizar e gerar automaticamente os arquivos `BUILD.bazel`.
 - **JavaScript** e **TypeScript**, com gerenciamento de dependências via **pnpm** e **pnpm workspace**.
 - Execução de testes com **Jest**, garantindo qualidade e confiabilidade.
 - Geração de imagens Docker, facilitando a containerização e o deploy das aplicações.
@@ -20,12 +20,12 @@ O objetivo deste repositório é simplificar a configuração e manutenção de 
 
 ## Requisitos
 
-| Ferramenta       | Versão         | Descrição |
-| ---------------- | -------------- | --------- |
-| **Bazel**        | `>= 8.0.1`     | Ferramenta de build e automação para projetos multi‑linguagem. ([Bazel](https://bazel.build/)) |
-| **Golang**       | `>= 1.23.5`    | Linguagem Go, versão compatível com os requisitos do projeto. ([Golang](https://golang.org/dl/)) |
-| **Node.js**      | `>= 22.13.1`   | Ambiente de execução para JavaScript, usado em conjunto com PNPM. ([NodeJs](https://nodejs.org/)) |
-| **Taskfile**     | `>= 3`         | Ferramenta de automação de tarefas para simplificar os workflows. ([Taskfile](https://taskfile.dev/)) |
-| **PNPM**         | `>= 9.15.6`     | Gerenciador de pacotes JavaScript que otimiza a instalação e o gerenciamento de dependências. ([PNPM](https://pnpm.io/)) |
-| **Docker CLI**   | `>= 27.2.1`    | Ferramenta de linha de comando para gerenciamento de containers Docker. ([Docker CLI](https://docs.docker.com/engine/reference/commandline/cli/)) |
-| **Docker Compose** | `>= v2.29.2` | Ferramenta para definir e gerenciar multi‑containers Docker, facilitando a orquestração de serviços. ([Docker Compose](https://docs.docker.com/compose/)) |
+| Ferramenta          | Versão           | Descrição                                                                                                                                         |
+| :------------------ | :--------------- | :------------------------------------------------------------------------------------------------------------------------------------------------ |
+| **Bazel**           | `>= 8.0.1`       | Ferramenta de build e automação para projetos multi‑linguagem. ([Bazel](https://bazel.build/))                                                    |
+| **Golang**          | `>= 1.23.5`      | Linguagem Go, versão compatível com os requisitos do projeto. ([Golang](https://golang.org/dl/))                                                  |
+| **Node.js**         | `>= 22.13.1`     | Ambiente de execução para JavaScript, usado em conjunto com PNPM. ([NodeJs](https://nodejs.org/))                                                 |
+| **Taskfile**        | `>= 3`           | Ferramenta de automação de tarefas para simplificar os workflows. ([Taskfile](https://taskfile.dev/))                                             |
+| **PNPM**            | `>= 9.15.6`      | Gerenciador de pacotes JavaScript que otimiza a instalação e o gerenciamento de dependências. ([PNPM](https://pnpm.io/))                          |
+| **Docker CLI**      | `>= 27.2.1`      | Ferramenta de linha de comando para gerenciamento de containers Docker. ([Docker CLI](https://docs.docker.com/engine/reference/commandline/cli/)) |
+| **Docker Compose**  | `>= v2.29.2`     | Ferramenta para definir e gerenciar multi‑containers Docker, facilitando a orquestração de serviços. ([Docker Compose](https://docs.docker.com/compose/)) |
