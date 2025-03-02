@@ -1,5 +1,7 @@
 import { database } from "../../core/database";
 
+/** @typedef {import('../../core/database').Product} Product */
+
 /**
  * @typedef {Object}  CreateProductRepositoryInput
  * @property {string} name
@@ -34,6 +36,15 @@ export class ProductRepository {
     }
 
     return !product;
+  }
+
+  /**
+   * Retorna todos os produtos do banco de dados.
+   *
+   * @returns {Promise<Product[]>}
+   */
+  async findAll() {
+    return database.products;
   }
 
   /**
