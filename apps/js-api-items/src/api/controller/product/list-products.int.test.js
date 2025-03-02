@@ -8,8 +8,6 @@ describe("Test Integration | ProductController - index(GET) ", () => {
   });
 
   it("should list all products", async () => {
-    const response = await request(global.server).get("/v1/products").send();
-
     database.products = [
       {
         _id: "1954602df6d",
@@ -30,6 +28,8 @@ describe("Test Integration | ProductController - index(GET) ", () => {
         categoria: "Eletrodomesticos",
       },
     ];
+
+    const response = await request(global.server).get("/v1/products").send();
 
     expect(response.statusCode).toBe(200);
     expect(response.body.total).toEqual(3);
