@@ -3,6 +3,7 @@ import { ProductRepository } from "../../api/repository";
 import {
   CreateProductService,
   DeleteProductService,
+  GetProductService,
   ListProductsService,
   UpdateProductService,
 } from "../../api/service";
@@ -14,6 +15,7 @@ export const TYPES = {
   },
   service: {
     ListProductsService: Symbol.for(ListProductsService.name),
+    GetProductService: Symbol.for(GetProductService.name),
     CreateProductService: Symbol.for(CreateProductService.name),
     UpdateProductService: Symbol.for(UpdateProductService.name),
     DeleteProductService: Symbol.for(DeleteProductService.name),

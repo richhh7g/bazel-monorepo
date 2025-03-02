@@ -1,7 +1,8 @@
 import express from "express";
 
 /**
- * @typedef {import('../../service').ListProductsService} ListProductsService
+ * @typedef {import('../../service').ListProductsService}  ListProductsService
+ * @typedef {import('../../service').GetProductService}    GetProductService
  * @typedef {import('../../service').CreateProductService} CreateProductService
  * @typedef {import('../../service').UpdateProductService} UpdateProductService
  * @typedef {import('../../service').DeleteProductService} DeleteProductService
@@ -39,18 +40,21 @@ import express from "express";
 
 export class ProductController {
   /**
-   * @param {ListProductsService} listProductsService
+   * @param {ListProductsService}  listProductsService
+   * @param {GetProductService}    getProductService
    * @param {CreateProductService} createProductService
    * @param {UpdateProductService} updateProductService
    * @param {DeleteProductService} deleteProductService
    */
   constructor(
     listProductsService,
+    getProductService,
     createProductService,
     updateProductService,
     deleteProductService
   ) {
     this.listProductsService = listProductsService;
+    this.getProductService = getProductService;
     this.createProductService = createProductService;
     this.updateProductService = updateProductService;
     this.deleteProductService = deleteProductService;
@@ -64,6 +68,7 @@ export class ProductController {
     const prefixV1 = "/v1/products";
 
     this.router.get(prefixV1, this.index.bind(this));
+    this.router.get(`${prefixV1}/:id`, this.show.bind(this));
     this.router.post(prefixV1, this.create.bind(this));
     this.router.put(`${prefixV1}/:id`, this.update.bind(this));
     this.router.delete(`${prefixV1}/:id`, this.delete.bind(this));
@@ -91,6 +96,33 @@ export class ProductController {
     };
 
     return res.json(response);
+  }
+
+  /**
+   * Rota para retornar um produto pelo ID
+   *
+   * @param {express.Request} req
+   * @param {express.Response} res
+   * @returns {express.Response}
+   */
+  async show(req, res) {
+    try {
+      const productId = req.params.id;
+
+      const product = await this.getProductService.run(productId);
+
+      /** @type {ProductSchema} */
+      const response = {
+        id: product.id,
+        nome: product.name,
+        preco: product.price,
+        categoria: product.category,
+      };
+
+      return res.json(response);
+    } catch (err) {
+      return res.status(404).json({ error: err.message });
+    }
   }
 
   /**

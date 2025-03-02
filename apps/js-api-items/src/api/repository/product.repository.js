@@ -48,6 +48,27 @@ export class ProductRepository {
   }
 
   /**
+   * Retorna um produto pelo id.
+   *
+   * @param {string} id
+   *
+   * @throws {Error}
+   * @returns {Promise<Product>}
+   */
+  async findById(id) {
+    try {
+      const product = database.products.find((product) => product._id === id);
+      if (!product) {
+        throw new Error("Produto não encontrado.");
+      }
+
+      return product;
+    } catch (err) {
+      throw new Error(err.message);
+    }
+  }
+
+  /**
    * Cria um novo produto no banco de dados
    *
    * @param {CreateProductRepositoryInput} input

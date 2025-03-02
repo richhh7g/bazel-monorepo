@@ -7,6 +7,7 @@ import { ProductRepository } from "../../api/repository";
 import {
   CreateProductService,
   DeleteProductService,
+  GetProductService,
   ListProductsService,
   UpdateProductService,
 } from "../../api/service";
@@ -33,6 +34,7 @@ export class InjectionConfig {
       .toDynamicValue((ctx) => {
         return new ProductController(
           ctx.container.get(TYPES.service.ListProductsService),
+          ctx.container.get(TYPES.service.GetProductService),
           ctx.container.get(TYPES.service.CreateProductService),
           ctx.container.get(TYPES.service.UpdateProductService),
           ctx.container.get(TYPES.service.DeleteProductService)
@@ -52,6 +54,14 @@ export class InjectionConfig {
       .bind(TYPES.service.ListProductsService)
       .toDynamicValue((ctx) => {
         return new ListProductsService(
+          ctx.container.get(TYPES.repository.ProductRepository)
+        );
+      });
+
+    InjectionConfig.container
+      .bind(TYPES.service.GetProductService)
+      .toDynamicValue((ctx) => {
+        return new GetProductService(
           ctx.container.get(TYPES.repository.ProductRepository)
         );
       });
