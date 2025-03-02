@@ -1,0 +1,8 @@
+{
+  "name": "@bazel-monorepo/js-api-items",
+  "version": "2.0.0",
+  "type": "module",
+  "dependencies": {
+    "chalk": "5.4.1"
+  }
+}

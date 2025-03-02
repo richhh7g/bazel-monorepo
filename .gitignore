@@ -1,3 +1,4 @@
 .bazel
 node_modules
+apps/js-api-items/node_modules
 apps/js-legacy-api-items/node_modules

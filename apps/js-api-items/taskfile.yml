@@ -1,0 +1,15 @@
+version: "3"
+
+tasks:
+  run:
+    desc: "Executa o binário da aplicação"
+    cmd: bazelisk run //apps/js-api-items:main --run_env=PORT=3333 {{.CLI_ARGS}}
+  build:
+    desc: "Compila o binário da aplicação"
+    cmd: bazelisk build //apps/js-api-items:main {{.CLI_ARGS}}
+  test:
+    desc: "Executa os testes da aplicação"
+    cmd: bazelisk test //apps/js-api-items:test --test_output=all --test_verbose_timeout_warnings --test_arg=--verbose --test_arg=--coverage
+  image:
+    desc: "Constrói uma imagem docker da aplicação localmente"
+    cmd: bazelisk run //apps/js-api-items:image {{.CLI_ARGS}}
