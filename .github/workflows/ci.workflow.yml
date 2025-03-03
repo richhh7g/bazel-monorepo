@@ -1,0 +1,26 @@
+name: Continuous Integration
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  ci-bazel-tests:
+    name:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Bazelisk
+        uses: bazel-contrib/setup-bazel@0.14.0
+        with:
+          bazelisk-version: 1.25.0
+          bazelisk-cache: true
+          repository-cache: true
+
+      - name: Run Bazel Tests
+        run: |
+          bazelisk test //... --test_output=all --test_verbose_timeout_warnings --test_arg=--verbose --test_arg=--coverage
