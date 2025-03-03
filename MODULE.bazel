@@ -33,6 +33,7 @@ oci.pull(
     platforms = ["linux/amd64"],
 )
 
+use_repo(oci, "ubuntu")
 
 # =======================================
 # Dependências para JavaScript
