@@ -11,6 +11,8 @@ const error = chalk.bold.red.underline;
 export class ExpressConfig {
   async configure() {
     const app = express();
+    
+    app.disable("x-powered-by");
 
     app.use(express.json());
 

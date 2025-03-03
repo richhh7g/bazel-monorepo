@@ -1,0 +1,49 @@
+name: Continuous Integration
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  ci-bazel-tests:
+    name: Bazel Tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Bazelisk
+        uses: bazel-contrib/setup-bazel@0.14.0
+        with:
+          bazelisk-cache: true
+          repository-cache: true
+
+      - name: Run Bazel Tests
+        run: |
+          bazelisk test //... --test_output=all --test_verbose_timeout_warnings --test_arg=--verbose --test_arg=--coverage
+
+  ci-sonarqube-scan:
+    name: SonarQube Quality gate and Code Coverage
+    needs: ci-bazel-tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Bazelisk
+        uses: bazel-contrib/setup-bazel@0.14.0
+        with:
+          bazelisk-cache: true
+          repository-cache: true
+
+      - name: Run Bazel Coverage
+        run: |
+          bazelisk coverage --combined_report=lcov //...
+
+      - name: SonarQube Scan
+        uses: SonarSource/sonarqube-scan-action@v4.2.1
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
